@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./parts/head.ejs %>
+  <style>
+.login-container{
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-left: 35%;
+    
+    
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    height: 500px;
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+  </style>
+</head>
+
+<body>
+    <div>
+    </div>
+    <div class=" login-container">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <h3>LOGIN</h3>
+                <form action="/user/api/v1/login" method="post">
+                    <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Your Email *" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" name="submit" class="btnSubmit" value="Login" />
+                    </div>
+                    <div class="form-group">
+                        <p><b>Don't have an account?</b> </p>
+                        <a href="/user/signup" class="btn btn-danger btn-lg btn-block"><b>Sign Up Here</b></a><br>
+                    </div>
+                </form>
+            </div>
+    </div>
+
+</body>

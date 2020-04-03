@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+body{
+  width: 80%;
+  margin: 0 auto;
+}
+.usercard{
+  width: 150px;
+  height: 200px;
+  /*display: inline;*/
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 3px 3px 10px #A9A9A9;
+  padding: 20px;
+  margin: 20px; 
+  overflow: visible;
+  float: left;
+}
+.usercard-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-left: 15%;
+  object-fit: contain;
+  border-bottom: 1px solid #ccc;
+}
+.usercard-username {
+  text-align: center;
+  margin-right: 10%;
+  color: black;
+  font-size: 25px;
+  margin-top: 2px;
+}
+#button {
+  width: 100px;
+  padding: 5px;
+  margin:5px;
+  margin-left: 15%;
+  border-radius: 5px;
+  color: white;
+  border: none;
+}
+.accept {
+  background-color: green;
+  color: white;
+  margin-left: 15%
+}
+    </style>
+</head>
+<body>
+    <h2>Search Friends</h2>
+<form action="/search" method="post">
+	<input type="text" name="searchfriend" placeholder="username">
+	<input type="submit" value="search">
+</form>
+<hr>
+	
+    <% for(var i=0; i < result.length; i++) { %>
+	<div class="usercard col-lg-3">
+		<img class="usercard-image" src="upload/<%= result[i].userImage %>">
+		<p class="usercard-username"><%= result[i].username %></p>
+		<form action="" method="get" class="add_friend">
+            <input type="hidden" name="receiverName" class="receiverName" value="<%= result[i].username %>">
+            <input type="hidden" name="sender-name" class="sender-name" value="<%= result[i].username %>">
+            <button type="submit" id="button" onclick="addFriend('<%= result[i].username %>')" class="btn add accept friend-add"><i class="fa fa-user"></i> Add Friend</button>
+        </form>
+    </div>
+    <% } %>
+  <script src="/public/js/scriptSearch.js"></script>
+</body>
+</html>

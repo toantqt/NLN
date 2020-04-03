@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <style>
+    #all{
+      width: 100%;
+      margin: 0 auto;
+    }
+    #image{
+      width: 20%;
+      height: 50px;
+      background-color: red;
+      float: left;
+      margin-top: -20px;
+      margin-bottom: 20px;
+    }
+    #header{
+      width: 80%;
+      height: 50px;
+      background-color: #ccc;
+      float: left;
+      margin-top: -20px;
+      margin-bottom: 20px;
+    }
+    .box{
+      padding-right: 30px;
+      line-height: 60px;
+    }
+    i{
+      color: rgb(41, 134, 177);
+    }
+    #icon{
+      height: 50px !important;
+    }
+    #icon a:hover{
+      color:rgb(41, 134, 177) !important;
+    }
+    img{
+      margin-top: -4px;
+      width: 29px;
+      height: 29px;
+      border-radius: 50%;
+      border:1px solid #ccc;
+      object-fit: contain;
+      
+    }
+    #profile a:hover{
+      background-color: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div id="all">
+  <div id="image">
+
+  </div>
+  <div id="header">
+    <ul class="nav navbar-nav navbar-right">
+      <% if(user){ %>
+        <li class="box">
+           <a id="profile" href="/profile"><img src="/upload/<%=user.userImage%>"> </a>
+        </li>
+        <li class="box"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+        <li id="icon" class="box"><a href="/user/logout"><i class="fas fa-sign-out-alt "></i></a></li>
+      <% } else{ %>
+        <li><a href="/user/login">Login</a></li>
+        <li><a href="/user/signup">Signup</a></li>
+      <% } %>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
+
+<!-- <header>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a href="/" class="boxN">Chat Online! </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        <% if(user){ %>
+          <li  class="boxF"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
+          <li  class="boxF"><a href="#">Hello, <%= user.username %></a></li>
+          <li  class="boxF"><a href="/user/logout">Logout</a></li>
+        <% } else{ %>
+          <li class="boxF"><a href="/user/login">Login</a></li>
+          <li class="boxF"><a href="/user/signup">Signup</a></li>
+        <% } %>
+      </ul>
+    </div>
+  </nav>
+</header> -->

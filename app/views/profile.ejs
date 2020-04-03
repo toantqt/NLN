@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        body{
+            width: 60%;
+            height: 650px;
+            margin: 0 auto;
+        }
+        #form{
+            width: 100%;
+            height: 100%;
+            background-color: #eee;
+        }
+        #image{
+            margin-left:35% ;
+            padding-top: 90px;
+        }
+        #image img{
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border:1px solid #ccc;
+            object-fit: contain;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="form">
+        <div id="image">
+            <img class="profilestyle" src="/upload/<%=user.userImage%>" >
+            <p><%= user.userImage%></p>
+            <p><%= user.username %></p>
+            <form action="/profile" enctype="multipart/form-data" method="post" style="margin-top: 10px">
+                <label class="custombutton" id="custombutton" style="width:200px;border: 1px solid #ccc;display: inline-block; padding: 6px 12px;cursor: pointer;">
+                <input type="file" name="upload" accept="image/*" style=" display: none;" onchange="document.getElementById('custombutton').style.border = '2px solid lightgreen'">
+                Chọn ảnh mới 
+                </label>
+                <input type="submit" value="Upload" style="border: 1px solid #2d2d2d ; padding: 6px 12px; cursor: pointer; background-color: #2d2d2d; color: #ccc">
+            </form>
+        </div>
+
+    </div>
+    
+</body>
+</html>

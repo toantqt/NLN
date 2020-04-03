@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ./parts/head.ejs %>
+  <style>
+.login-container{
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 5%;
+    padding-left: 35%;
+    
+    
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+    height: 530px;
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+.login-form-1 .ForgetPwd{
+    color: #0062cc;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+  </style>
+</head>
+
+<body>
+    <div>
+    </div>
+    <div class=" login-container">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <h3>Sign Up</h3>
+                <form action="/user/api/v1/signup" method="post">
+                    
+                    <div class="form-group">
+                        <p>Username:</p>
+                        <input id="uname"  class="form-control" type="text" name="username" placeholder="Username" autofocus autocomplete="off" required/>
+                    </div>
+                    <div class="form-group">
+                        <p>Email:</p>
+                        <input id="email" class="form-control" type="email" name="email" placeholder="Email" autocomplete="off" required/>
+                    </div>
+                    <div class="form-group">
+                        <p>Password:</p>
+                        <input id="pass" class="form-control" type="password" name="password" placeholder="Password" required/>  
+                    </div>
+                    <button class="btn btn-primary btn-block btn-lg" type="submit" name="submit">Signup</button><br>
+                    <p><b>Have an account?</b> </p>
+                    <a href="/user/login"  class="btn btn-danger btn-lg btn-block"><b>Log In Here</b></a><br>
+                </form>
+            </div>
+    </div>
+
+</body>
