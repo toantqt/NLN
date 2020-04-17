@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Document</title>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <script src="/js/jquery-3.1.1.min.js"></script>
   <style>
     #all{
       width: 100%;
@@ -63,6 +64,42 @@
         <li class="box">
            <a id="profile" href="/profile"><img src="/upload/<%=user.userImage%>"> </a>
         </li>
+        <li role="presentation"><a href="/search">Search <i class="fa fa-search"></i></a></li>
+        <li style="margin-top: 8px;">
+          <div class="dropdown" style="">
+          <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"><i class="fa fa-user-plus"></i>
+          <span class="caret"></span></button>
+            <ul class="dropdown-menu" style="width: 300px; height: 400px; overflow-y: scroll;">
+              
+              <% if(user.request){ %>
+              <% for(var i=0; i< newfriend.length; i++) {%>
+              <li style="border-bottom: 1px solid lightgray">
+                <a href="#">
+                    <div>
+                      <h4><%= newfriend[i].username %></h4>
+                    </div>
+                    <div>
+                        <div style="width: 50%; display: inline;">
+                          <input type="hidden" name="senderId" id="senderId" value="<%= newfriend[i].userId %>">
+                          <input type="hidden" name="senderName" id="senderName" value="<%= newfriend[i].username %>">
+                          <button type="submit" id="accept_friend" class="btn btn-primary" style="width: 8em">Accept</button>
+                        </div>
+                        <div style="width: 50%;  display: inline;">
+                           <input type="hidden" name="user_Id" id="user_Id" value="<%= newfriend[i].userId %>">
+                          <button type="submit" id="cancel_friend" class="btn btn-primary" style="width: 8em">Cancel</button>
+                        </div>
+                    </div>    
+                </a>
+              </li>
+              <% } %>
+              <% } else{ %>
+              <div>
+                <h4 style="text-align:center">No requests</h4>
+              </div>
+              <% } %>
+            </ul>
+          </div>
+        </li>
         <li class="box"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
         <li id="icon" class="box"><a href="/user/logout"><i class="fas fa-sign-out-alt "></i></a></li>
       <% } else{ %>
@@ -72,25 +109,7 @@
     </ul>
   </div>
 </div>
+  <script type="text/javascript" src="/js/sendRequest.js"></script>
 </body>
 </html>
 
-<!-- <header>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a href="/" class="boxN">Chat Online! </a>
-    </div>
-    <ul class="nav navbar-nav navbar-right">
-        <% if(user){ %>
-          <li  class="boxF"><a href=""><span id="totalOnline" class="badge">0</span>  User's Online</a></li>
-          <li  class="boxF"><a href="#">Hello, <%= user.username %></a></li>
-          <li  class="boxF"><a href="/user/logout">Logout</a></li>
-        <% } else{ %>
-          <li class="boxF"><a href="/user/login">Login</a></li>
-          <li class="boxF"><a href="/user/signup">Signup</a></li>
-        <% } %>
-      </ul>
-    </div>
-  </nav>
-</header> -->

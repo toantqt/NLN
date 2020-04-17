@@ -23,12 +23,13 @@ $ (function(){
 
   });//end of connect event.
 
-
+$('#createGroup').hide();
 
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
     $('#list').empty();
     $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
+    $('#list').append($('<li>').append($('<button id="addGroup" class="btn btn-danger btn-block btn-lg"></button>').text("Add Group").css({"font-size":"18px"})));
     var totalOnline = 0;
     for (var user in stack){
       //setting txt1. shows users button.
@@ -58,6 +59,8 @@ $ (function(){
   //on button click function.
   $(document).on("click","#ubtn",function(){
 
+    $('#frameChat').show();
+    $('#createGroup').hide();
     //empty messages.
     $('#messages').empty();
     $('#typing').text("");
@@ -88,6 +91,12 @@ $ (function(){
     socket.emit('set-room',{name1:currentRoom,name2:reverseRoom});
 
   }); //end of on button click event.
+
+  //function add group
+  $(document).on("click","#addGroup",function(){
+    $('#frameChat').hide();
+    $('#createGroup').show();
+  })
 
   //event for setting roomId.
   socket.on('set-room',function(room){

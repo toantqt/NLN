@@ -62,13 +62,14 @@ body{
 	<div class="usercard col-lg-3">
 		<img class="usercard-image" src="upload/<%= result[i].userImage %>">
 		<p class="usercard-username"><%= result[i].username %></p>
-		<form action="" method="get" class="add_friend">
+		<form action="" method="post" class="add_friend">
             <input type="hidden" name="receiverName" class="receiverName" value="<%= result[i].username %>">
-            <input type="hidden" name="sender-name" class="sender-name" value="<%= result[i].username %>">
+            <input type="hidden" name="sender-name" class="sender-name" value="<%= username %>">
             <button type="submit" id="button" onclick="addFriend('<%= result[i].username %>')" class="btn add accept friend-add"><i class="fa fa-user"></i> Add Friend</button>
         </form>
     </div>
     <% } %>
-  <script src="/public/js/scriptSearch.js"></script>
+    <script type="text/javascript" src="/js/sendRequest.js"></script>
+    
 </body>
 </html>
