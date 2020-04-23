@@ -29,7 +29,6 @@ $('#createGroup').hide();
   socket.on('onlineStack',function(stack){
     $('#list').empty();
     $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
-    $('#list').append($('<li>').append($('<button id="addGroup" class="btn btn-danger btn-block btn-lg"></button>').text("Add Group").css({"font-size":"18px"})));
     var totalOnline = 0;
     for (var user in stack){
       //setting txt1. shows users button.
@@ -41,12 +40,12 @@ $('#createGroup').hide();
       }
       //setting txt2. shows online status.
       if(stack[user] == "Online"){
-        var txt2 = $('<span class="badge"></span>').text("*"+stack[user]).css({"float":"right","color":"#009933","font-size":"18px"});
+        var txt2 = $('<span></span>').append("<i class='fas fa-circle'></i>").css({"float":"right","color":"green","font-size":"15px", "margin-top": "9px"});
         totalOnline++;
 
       }
       else{
-        var txt2 = $('<span class="badge"></span>').text(stack[user]).css({"float":"right","color":"#a6a6a6","font-size":"18px"});
+        var txt2 = $('<span ></span>').text(stack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
       //listing all users.
       $('#list').append($('<li>').append(txt1,txt2));
@@ -92,11 +91,7 @@ $('#createGroup').hide();
 
   }); //end of on button click event.
 
-  //function add group
-  $(document).on("click","#addGroup",function(){
-    $('#frameChat').hide();
-    $('#createGroup').show();
-  })
+  
 
   //event for setting roomId.
   socket.on('set-room',function(room){
@@ -185,7 +180,7 @@ $('#createGroup').hide();
   }); //end of typing event.
 
   //sending message.
-  $('form').submit(function(){
+  $('#chatForm').submit(function(){
     socket.emit('chat-msg',{msg:$('#myMsg').val(),msgTo:toUser,date:Date.now()});
     $('#myMsg').val("");
     $('#sendBtn').hide();

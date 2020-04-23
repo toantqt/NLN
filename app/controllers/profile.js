@@ -6,13 +6,14 @@ const path = require('path');
 const router = express.Router();
 
 const userModel = mongoose.model("User");
+const auth = require("../../middlewares/auth.js");
 
 module.exports.controller = function(app){
-    app.get('/profile', (req, res) => {
-        res.render('profile', {
-            user: req.session.user
-        });
-    });
+    // app.get('/profile', auth.checkLogin, (req, res) => {
+    //     res.render('profile', {
+    //         user: req.session.user
+    //     });
+    // });
     app.post('/profile', function(req, res){
         var form =new formidable.IncomingForm();
         form.parse(req);
@@ -36,7 +37,7 @@ module.exports.controller = function(app){
             });
         });
         //req.flash('success_msg', 'Your profile picture has been uploaded');
-        res.redirect('/profile');
+        res.redirect('/chat');
     })
 
     // app.post('/profile', (req, res) => {

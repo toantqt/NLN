@@ -196,3 +196,16 @@ max-height: 100px;
 overflow-y:auto;
 
 }
+.animation{
+  animation: mymove 0.8s;
+}
+body{
+  font-size: 16px !important;
+}
+a{
+  font-size: 16px;
+}
+@keyframes mymove {
+  from{transform: translateY(10%);opacity: 0;}
+  to{transform: translateY(0px);opacity: 1;}
+}

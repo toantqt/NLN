@@ -1,4 +1,4 @@
-var socket = io();
+var socket = io('/chat');
 var sender = $('#currentuser').val();
 var receiverName;
 function addFriend(name) {

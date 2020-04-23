@@ -8,8 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vithalreddy/nodeJS-socketIO-chat.git"
+    "type": "git"
   },
   "keywords": [
     "nodejs",
@@ -19,12 +18,12 @@
     "real-time",
     "chat-app"
   ],
-  "author": "VithalReddy",
+  "author": "toantqt",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/vithalreddy/nodeJS-socketIO-chat/issues"
+    "url": "https://github.com/toantqt/NLN/issues"
   },
-  "homepage": "https://github.com/vithalreddy/nodeJS-socketIO-chat#readme",
+  "homepage": "https://github.com/toantqt/NLN",
   "dependencies": {
     "async": "^3.2.0",
     "body-parser": "^1.17.2",

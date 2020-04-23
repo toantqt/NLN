@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <% include ./parts/head.ejs %>
-  <link rel="stylesheet" href="file/to/path/css/emojionearea.min.css">
-  <script type="text/javascript" src="file/to/path/js/emojionearea.min.js"></script>
+  <!-- <link rel="stylesheet" href="file/to/path/css/emojionearea.min.css">
+  <script type="text/javascript" src="file/to/path/js/emojionearea.min.js"></script> -->
 </head>
 <body>
   <% include ./parts/header.ejs %>
@@ -11,21 +11,21 @@
   <main>
     <div class="container-fluid">
       <input type="hidden" id="user" value="<%= user.username %>"/>
-      <div class="row">
-        <div class="col-sm-4">
+      <div class="row w-100">
+        <div class="col-sm-4" style="margin-top: 30px;">
           <div class="panel panel-primary">
-            <div class="panel-heading">
+            <div class="panel-heading" >
               <h2>Chat Options</h2></div>
 
             <div class="panel-body" id="scrl1">
               <ul id="list" ></ul>
             </div>
             <div class="panel-footer">
-              <p id="typing"  class="btn btn-danger btn-block btn-lg"></p>
+             
             </div>
           </div>
         </div>
-        <div id="frameChat" class="col-sm-8">
+        <div id="frameChat" class="col-sm-8" style="margin-top: 30px;">
           <div class="panel panel-primary">
             <div class="panel-heading">
               <h4 id="frndName">Chat Room</h4>
@@ -45,13 +45,6 @@
             </div>
           </div>
         </div>
-        <div id="createGroup">
-          <form action="/group" method="POST">
-            <p>Tên nhóm</p>
-            <input type="text" name="nameGroup" >
-            <input type="submit" value="Add Group">
-          </form>
-        </div>
 
       </div>
     </div>
@@ -61,11 +54,11 @@
 
   <script src="/js/scriptForChat.js"></script>
   <script type="text/javascript" src="/js/sendRequest.js"></script>
-  <script>
+  <!-- <script>
      $(document).ready(function() {
         $("#myMsg").emojioneArea();
      });
-  </script>
+  </script> -->
   <script src="/js/jquery-3.1.1.min.js"></script>
 </body>
 </html>

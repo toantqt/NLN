@@ -1,75 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <style>
-body{
-  width: 80%;
-  margin: 0 auto;
-}
-.usercard{
-  width: 150px;
-  height: 200px;
-  /*display: inline;*/
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 3px 3px 10px #A9A9A9;
-  padding: 20px;
-  margin: 20px; 
-  overflow: visible;
-  float: left;
-}
-.usercard-image {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  margin-left: 15%;
-  object-fit: contain;
-  border-bottom: 1px solid #ccc;
-}
-.usercard-username {
-  text-align: center;
-  margin-right: 10%;
-  color: black;
-  font-size: 25px;
-  margin-top: 2px;
-}
-#button {
-  width: 100px;
-  padding: 5px;
-  margin:5px;
-  margin-left: 15%;
-  border-radius: 5px;
-  color: white;
-  border: none;
-}
-.accept {
-  background-color: green;
-  color: white;
-  margin-left: 15%
-}
+        body {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+        .usercard {
+            width: 150px;
+            height: 200px;
+            /*display: inline;*/
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 3px 3px 10px #A9A9A9;
+            padding: 20px;
+            margin: 20px;
+            overflow: visible;
+            float: left;
+        }
+
+        .usercard-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-left: 15%;
+            object-fit: contain;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .usercard-username {
+            text-align: center;
+            margin-right: 10%;
+            color: black;
+            font-size: 25px;
+            margin-top: 2px;
+        }
+
+        #button {
+            width: 100px;
+            padding: 5px;
+            margin: 5px;
+            margin-left: 15%;
+            border-radius: 5px;
+            color: white;
+            border: none;
+        }
+
+        .accept {
+            background-color: green;
+            color: white;
+            margin-left: 15%
+        }
+
+        .search_container {
+            padding-top: 20px;
+        }
+        .search_input {
+            width: 100%;
+            padding: 12px 24px;
+            background-color: transparent;
+            transition: transform 250ms ease-in-out;
+            font-size: 14px;
+            line-height: 18px;
+            color: #575756;
+            background-color: transparent;
+            background-repeat: no-repeat;
+            background-size: 18px 18px;
+            background-position: 95% center;
+            border-radius: 50px;
+            border: 1px solid #575756;
+            transition: all 250ms ease-in-out;
+            backface-visibility: hidden;
+            transform-style: preserve-3d;
+        }
+        .search_input::placeholder {
+            color: color(#575756 a(0.8));
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .search_input:hover:focus {
+            padding: 12px 0;
+            outline: 0;
+            border: 1px solid transparent;
+            border-bottom: 2px solid #0e1c35;
+            border-radius: 0;
+            background-position: 100% center;
+        }
     </style>
 </head>
+
 <body>
-    <h2>Search Friends</h2>
-<form action="/search" method="post">
-	<input type="text" name="searchfriend" placeholder="username">
-	<input type="submit" value="search">
-</form>
-<hr>
-	
-    <% for(var i=0; i < result.length; i++) { %>
-	<div class="usercard col-lg-3">
-		<img class="usercard-image" src="upload/<%= result[i].userImage %>">
-		<p class="usercard-username"><%= result[i].username %></p>
-		<form action="" method="post" class="add_friend">
-            <input type="hidden" name="receiverName" class="receiverName" value="<%= result[i].username %>">
-            <input type="hidden" name="sender-name" class="sender-name" value="<%= username %>">
-            <button type="submit" id="button" onclick="addFriend('<%= result[i].username %>')" class="btn add accept friend-add"><i class="fa fa-user"></i> Add Friend</button>
+    <div class="animation">
+        <div>
+            <h2>Search Friends</h2> 
+        <h2><i class="far fa-times-circle"></i></h2>
+
+        </div>
+        <form action="/search" method="post">
+            <input type="text" name="searchfriend" placeholder="username">
+            <input type="submit" value="search">
         </form>
-    </div>
-    <% } %>
-    <script type="text/javascript" src="/js/sendRequest.js"></script>
+        <div class="search_container">
+            <input class="search_input" type="text" placeholder="Search">
+        </div>
+        <hr>
     
+        <% for(var i=0; i < result.length; i++) { %>
+        <div class="usercard col-lg-3">
+            <img class="usercard-image" src="upload/<%= result[i].userImage %>">
+            <p class="usercard-username"><%= result[i].username %></p>
+            <form action="" method="post" class="add_friend">
+                <input type="hidden" name="receiverName" class="receiverName" value="<%= result[i].username %>">
+                <input type="hidden" name="sender-name" class="sender-name" value="<%= username %>">
+                <button type="submit" id="button" onclick="addFriend('<%= result[i].username %>')"
+                    class="btn add accept friend-add"><i class="fa fa-user"></i> Add Friend</button>
+            </form>
+        </div>
+        <% } %>
+        <script type="text/javascript" src="/js/sendRequest.js"></script>
+    </div>
 </body>
+
 </html>

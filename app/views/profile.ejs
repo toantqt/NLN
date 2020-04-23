@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
+    <script src="/js/socket.io-1.7.3.js"></script>
     <style>
         body{
             width: 60%;
@@ -30,12 +31,13 @@
     </style>
 </head>
 <body>
+    <main>
     <div id="form">
         <div id="image">
-            <img class="profilestyle" src="/upload/<%=user.userImage%>" >
-            <p><%= user.userImage%></p>
+            <img class="profilestyle" src="/upload/<%= user.userImage %>" >
+            <input type="hidden" id="user" value="<%= user.username %>">
             <p><%= user.username %></p>
-            <form action="/profile" enctype="multipart/form-data" method="post" style="margin-top: 10px">
+            <form action="/profile" enctype="multipart/form-data" method="POST" style="margin-top: 10px">
                 <label class="custombutton" id="custombutton" style="width:200px;border: 1px solid #ccc;display: inline-block; padding: 6px 12px;cursor: pointer;">
                 <input type="file" name="upload" accept="image/*" style=" display: none;" onchange="document.getElementById('custombutton').style.border = '2px solid lightgreen'">
                 Chọn ảnh mới 
@@ -45,6 +47,9 @@
         </div>
 
     </div>
-    
+</main>
+<% include ./parts/footer.ejs %>
+<script src="/js/scriptForUpload.js"></script>
+<script src="/js/jquery-3.1.1.min.js"></script>
 </body>
 </html>

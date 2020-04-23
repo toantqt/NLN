@@ -12,7 +12,8 @@ module.exports.controller = function(app) {
       title: "Chat Home",
       user: req.session.user,
       chat: req.session.chat,
-      newfriend: req.session.user.request
+      newfriend: req.session.user.request,
+      image: req.session.user.userImage
     });
   });
 
