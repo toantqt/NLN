@@ -16,7 +16,7 @@
     #all{
       width: 100%;
       margin: 0 auto;
-      margin-top: -10px;
+      margin-top: 10px;
     }
     #image{
       width: 20%;
@@ -112,12 +112,9 @@
 <body>
   <div class="container">
     <!-- Button to Open the Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-      Open modal
-    </button>
   
     <!-- The Modal -->
-    <div class="modal" id="myModal">
+    <div class="modal" id="myModal1">
       <div class="modal-dialog">
         <div class="modal-content">
         
@@ -146,6 +143,39 @@
         </div>
       </div>
     </div>
+<!-- 
+    modal2 change Password -->
+    <div class="modal" id="myModal2">
+      <div class="modal-dialog">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Change Password</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form action="/profile" enctype="multipart/form-data" method="POST" style="margin-top: 10px">
+              <p>New Password</p>
+              <input type="password" placeholder="new password">
+              <p>Confirm Password</p>
+              <input type="password" placeholder="confirm new Password">
+              <br>
+              <button type="submit">Reset Password</button>
+    
+          </form>
+          </div>
+          
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          </div>
+          
+        </div>
+      </div>
+    </div>
     
   </div>
   <div id="all">
@@ -161,14 +191,17 @@
       </button>
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 120px; width: 300px; margin-top: -19px;">
         <div class="container" style="background-color: #eee; margin-top: 5px;">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
             <i class="far fa-address-card" style="font-size: 38px;"></i>
           </button>
           <p style="display: inline-block; font-size: 17px;">Change Avatar</p>
         </div>
-    <div style="background-color: #eee; margin-top: 3px;">
-         <a href="#"><i class="fas fa-key" style="font-size: 40px;"></i><p style="display: inline-block;">Change Password</p></a>
-        </div>  
+        <div class="container" style="background-color: #eee; margin-top: 5px;">
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
+            <i class="fas fa-key" style="font-size: 40px;"></i>
+          </button>
+          <p style="display: inline-block; font-size: 17px;">Change Password</p>
+        </div> 
         </div>
     </div>
   

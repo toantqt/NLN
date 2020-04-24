@@ -41,11 +41,13 @@ $('#createGroup').hide();
       //setting txt2. shows online status.
       if(stack[user] == "Online"){
         var txt2 = $('<span></span>').append("<i class='fas fa-circle'></i>").css({"float":"right","color":"green","font-size":"15px", "margin-top": "9px"});
+       
         totalOnline++;
 
       }
       else{
         var txt2 = $('<span ></span>').text(stack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+       
       }
       //listing all users.
       $('#list').append($('<li>').append(txt1,txt2));

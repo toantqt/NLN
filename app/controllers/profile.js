@@ -35,6 +35,7 @@ module.exports.controller = function(app){
                     console.log(err);
                 }
             });
+            // userModel.save();
         });
         //req.flash('success_msg', 'Your profile picture has been uploaded');
         res.redirect('/chat');

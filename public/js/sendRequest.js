@@ -36,6 +36,8 @@ $(document).ready(function(){
 					$(this).parent().eq(1).remove();
 				}
 			});
+		//  alert('hello');
+		$(this).parent.eq(1).remove();
 		$('#reload').load(location.href + ' #reload');		
 		});
 		$('#cancel_friend').on('click', function(){
