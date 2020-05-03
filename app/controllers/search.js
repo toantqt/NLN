@@ -33,7 +33,7 @@ module.exports.controller = function(app){
         var searchFriend = req.body.searchfriend;
         console.log(searchFriend);
         if(searchFriend) {
-            var mssg= '';
+            var mssg= 'No name';
            if (searchFriend == req.session.user.username) {
                searchFriend = null;
            }
@@ -81,7 +81,7 @@ module.exports.controller = function(app){
 			}
 		}],
 	(err, results)=>{
-		res.redirect('/search');
+		res.redirect('/chat');
 	});
 
 			async.parallel([
@@ -155,7 +155,7 @@ module.exports.controller = function(app){
 					}
 				} 		
 			],(err, results)=> {
-				res.redirect('/search');
+				res.redirect('/chat');
 			});
     })
 }

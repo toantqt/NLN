@@ -28,7 +28,7 @@ $('#createGroup').hide();
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
     $('#list').empty();
-    $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px"})));
+    $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px", "width":"70px"})));
     var totalOnline = 0;
     for (var user in stack){
       //setting txt1. shows users button.
@@ -53,7 +53,7 @@ $('#createGroup').hide();
       $('#list').append($('<li>').append(txt1,txt2));
       $('#totalOnline').text(totalOnline);
     }//end of for.
-    $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
+    // $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
   }); //end of receiving onlineStack event.
 
 

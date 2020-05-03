@@ -56,12 +56,13 @@
             color: white;
             margin-left: 15%
         }
-
-        .search_container {
-            padding-top: 20px;
+        .search_container{
+            padding-top: 50px;
         }
+
+       
         .search_input {
-            width: 100%;
+            width:100%;
             padding: 12px 24px;
             background-color: transparent;
             transition: transform 250ms ease-in-out;
@@ -92,22 +93,23 @@
             border-radius: 0;
             background-position: 100% center;
         }
+       
     </style>
 </head>
 
 <body>
     <div class="animation">
-        <div>
-            <h2>Search Friends</h2> 
-        <h2><i class="far fa-times-circle"></i></h2>
-
+        <div id="title" style="float: left;">
+            <h2>Find My Friends</h2> 
         </div>
-        <form action="/search" method="post">
+        <!-- <form action="/search" method="post">
             <input type="text" name="searchfriend" placeholder="username">
             <input type="submit" value="search">
-        </form>
+        </form> -->
         <div class="search_container">
-            <input class="search_input" type="text" placeholder="Search">
+            <form action="/search" method="POST">
+                <input class="search_input" name="searchfriend" type="text" placeholder="Username">
+            </form>
         </div>
         <hr>
     
