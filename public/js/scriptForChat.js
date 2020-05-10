@@ -227,6 +227,21 @@ $('#createGroup').hide();
       $('#scrl2').scrollTop($('#scrl2').prop("scrollHeight"));
   }); //end of receiving messages.
 
+  //add group name
+  $('#addGroup').submit(function(){
+    var nameGroup = $('#nameGroup').val();
+    socket.emit('add-group',{name: nameGroup});
+  });
+
+  socket.on('add-group', function(data){
+    // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px", "width":"70px"})));
+    alert(data.name);
+  });
+
+  //chang profile event
+  $('#change').submit(function(){
+    alert("Update Profile successfully. Plese Login");
+  })
   //on disconnect event.
   //passing data on connection.
   socket.on('disconnect',function(){

@@ -13,6 +13,9 @@
       float: right !important;
       clear: both;
     }
+    #ubtn{
+      margin-top: 5px;
+    }
   </style>
 </head>
 <body>
@@ -33,9 +36,11 @@
                   Dropdown button
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <a class="dropdown-item" href="#">Action</a>
-                  <a class="dropdown-item" href="#">Another action</a>
-                  <a class="dropdown-item" href="#">Something else here</a>
+                  <ul class="dropdown-item" id="list-room">
+                    <li class="dropdown-item">toan</li>
+                    <li class="dropdown-item">tien</li>
+                    <li>asdfsdf</li>
+                  </ul>
                 </div>
               </div>
               <ul id="list" ></ul>
@@ -71,7 +76,7 @@
   </main>
 
   <% include ./parts/footer.ejs %>
-
+  </script>
   <script src="/js/scriptForChat.js"></script>
   <script type="text/javascript" src="/js/sendRequest.js"></script>
   <!-- <script>

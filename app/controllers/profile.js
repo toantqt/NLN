@@ -38,7 +38,7 @@ module.exports.controller = function(app){
             // userModel.save();
         });
         //req.flash('success_msg', 'Your profile picture has been uploaded');
-        res.redirect('/chat');
+        res.redirect('/user/logout');
     })
 
     // app.post('/profile', (req, res) => {

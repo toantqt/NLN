@@ -120,18 +120,26 @@
         
           <!-- Modal Header -->
           <div class="modal-header">
-            <h4 class="modal-title">Update Avartar</h4>
+            <h4 class="modal-title">Change Profile</h4>
             <button type="button" class="close" data-dismiss="modal">&times;</button>
           </div>
           
           <!-- Modal body -->
           <div class="modal-body">
-            <form action="/profile" enctype="multipart/form-data" method="POST" style="margin-top: 10px">
+            <h3>Update Avatar</h3>
+            <form action="/profile" enctype="multipart/form-data" method="POST" style="margin-top: 10px" id="change">
               <label class="custombutton" id="custombutton" style="width:200px;border: 1px solid #ccc;display: inline-block; padding: 6px 12px;cursor: pointer;">
               <input type="file" name="upload" accept="image/*" style=" display: none;" onchange="document.getElementById('custombutton').style.border = '2px solid lightgreen'">
               Chọn ảnh mới 
               </label>
-              <input type="submit" value="Upload" style="border: 1px solid #2d2d2d ; padding: 6px 12px; cursor: pointer; background-color: #2d2d2d; color: #ccc">
+              <hr>
+              <h3>Update Password</h3>
+                <p>New Password</p>
+                <input type="password" placeholder="new password">
+                <p>Confirm Password</p>
+                <input type="password" placeholder="confirm new Password">
+                <br>
+                <input type="submit" value="Update" style="border: 1px solid #2d2d2d ; padding: 6px 12px; cursor: pointer; background-color: #2d2d2d; color: #ccc; margin-top: 10px;">
           </form>
           </div>
           
@@ -150,23 +158,9 @@
         <div class="modal-content">
         
           <!-- Modal Header -->
-          <div class="modal-header">
-            <h4 class="modal-title">Change Password</h4>
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-          </div>
           
-          <!-- Modal body -->
-          <div class="modal-body">
-            <form action="/profile" enctype="multipart/form-data" method="POST" style="margin-top: 10px">
-              <p>New Password</p>
-              <input type="password" placeholder="new password">
-              <p>Confirm Password</p>
-              <input type="password" placeholder="confirm new Password">
-              <br>
-              <button type="submit">Reset Password</button>
-    
-          </form>
-          </div>
+          
+         
           
           <!-- Modal footer -->
           <div class="modal-footer">
@@ -189,19 +183,13 @@
       <button class="btn-friend" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <img class="img-user" src="/upload/<%=user.userImage%>">
       </button>
-      <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 120px; width: 300px; margin-top: -19px;">
-        <div class="container" style="background-color: #eee; margin-top: 5px;">
+      <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 75px; width: 300px; margin-top: -19px;">
+        <div class="container" style=" margin-top: 5px;">
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">
             <i class="far fa-address-card" style="font-size: 38px;"></i>
           </button>
-          <p style="display: inline-block; font-size: 17px;">Change Avatar</p>
+          <p style="display: inline-block; font-size: 17px;">Change Profile</p>
         </div>
-        <div class="container" style="background-color: #eee; margin-top: 5px;">
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal2">
-            <i class="fas fa-key" style="font-size: 40px;"></i>
-          </button>
-          <p style="display: inline-block; font-size: 17px;">Change Password</p>
-        </div> 
         </div>
     </div>
   
@@ -255,12 +243,12 @@
         <i title="Add Group" class="fas fa-users font-30"></i> 
     </button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 200px; width: 300px">
-      <form style="margin-left: 30px; margin-top: 20px;">
+      <form style="margin-left: 30px; margin-top: 20px;" id="addGroup" action="">
         <div class="form-group" style="width: 70%;">
           <label for="exampleInputEmail1" style="font-size: 16px;">Name Group</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name group" style="height: 40px; font-size: 16px;">
+          <input type="text" id="nameGroup" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name group" style="height: 40px; font-size: 16px;">
         </div>
-        <button type="submit" class="btn btn-primary" style="width: 80px; height: 40px; font-size: 20px;">Add</button>
+        <button class="btn btn-primary" style="width: 80px; height: 40px; font-size: 20px;">Add</button>
       </form>
 
     </div>
@@ -342,7 +330,7 @@
     $("#myModal").modal("show");
   });
 </script> -->
-
+  
   <script type="text/javascript" src="/js/sendRequest.js"></script>
 </body>
 </html>
