@@ -35,15 +35,22 @@ $('#createGroup').hide();
       if(user == username){
         var txt1 = $('<button class="boxF disabled"> </button>').text(user).css({"font-size":"18px"});
       }
+      else if(user == 'undefined'){
+        var txt1 = '';
+        
+      }
       else{
         var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(user).css({"font-size":"18px"});
       }
       //setting txt2. shows online status.
-      if(stack[user] == "Online"){
+      if(stack[user] == "Online" && user != 'undefined'){
         var txt2 = $('<span></span>').append("<i class='fas fa-circle'></i>").css({"float":"right","color":"green","font-size":"15px", "margin-top": "9px"});
        
         totalOnline++;
 
+      }
+      else if(user == 'undefined'){
+        var txt2 = '';
       }
       else{
         var txt2 = $('<span ></span>').text(stack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
@@ -116,7 +123,7 @@ $('#createGroup').hide();
 
     if($('#scrl2').scrollTop() == 0 && noChat == 0 && oldInitDone == 1){
       $('#loading').show();
-      socket.emit('old-chats',{room:roomId,username:username,msgCount:msgCount});
+      socket.emit('old-chats',{room:roomId,username:username,msgCount:msgCount, msgTo: toUser});
     }
 
   }); // end of scroll event.
@@ -128,15 +135,25 @@ $('#createGroup').hide();
       oldInitDone = 1; //setting value to implies that old-chats first event is done.
       if(data.result.length != 0){
         $('#noChat').hide(); //hiding no more chats message.
+        
         for (var i = 0;i < data.result.length;i++) {
           //styling of chat message.
+          
           var chatDate = moment(data.result[i].createdOn).format("MMMM Do YYYY, hh:mm:ss a");
-          var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ").css({"color":"#006080"});
-          var txt2 = $('<span></span>').text(chatDate).css({"float":"right","color":"#a6a6a6","font-size":"16px"});
+          var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ").css({"color":"#006080","float": "right !important"});
+          var txt2 = $('<span></span>').text(chatDate).css({"color":"#a6a6a6","font-size":"16px"});
           var txt3 = $('<p></p>').append(txt1,txt2);
-          var txt4 = $('<p></p>').text(data.result[i].msg).css({"color":"#000000"});
+          var txt4 = $('<p></p>').text(data.result[i].msg).css({"color":"#000000","float": "right !important"});
           //showing chat in chat box.
-          $('#messages').prepend($('<li>').append(txt3,txt4));
+          if(data.result[i].msgFrom == username){
+            $('#messages').prepend($('<li id="me">').append(txt3,txt4));
+          }
+          else{
+            $('#messages').prepend($('<li id="you">').append(txt3,txt4));
+          }
+          // if(data.username == msgTo){
+          //   $('#messages').prepend($('<li>').append(txt3,txt4)).css({"float":"left"});
+          // }
           msgCount++;
 
         }//end of for.
@@ -198,7 +215,12 @@ $('#createGroup').hide();
     var txt3 = $('<p></p>').append(txt1,txt2);
     var txt4 = $('<p></p>').text(data.msg).css({"color":"#000000"});
     //showing chat in chat box.
-    $('#messages').append($('<li>').append(txt3,txt4));
+    if(data.msgFrom == username){
+      $('#messages').append($('<li id="me">').append(txt3,txt4));
+    }
+    else{
+      $('#messages').append($('<li id="you">').append(txt3,txt4));
+    }
       msgCount++;
       console.log(msgCount);
       $('#typing').text("");
