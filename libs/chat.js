@@ -8,11 +8,13 @@ const eventEmitter = new events.EventEmitter();
 require("../app/models/user.js");
 require("../app/models/chat.js");
 require("../app/models/room.js");
+require("../app/models/group.js");
 
 //using mongoose Schema models
 const userModel = mongoose.model("User");
 const chatModel = mongoose.model("Chat");
 const roomModel = mongoose.model("Room");
+const groupModel = mongoose.model("Group");
 
 //reatime magic begins here
 module.exports.sockets = function(http) {
@@ -115,6 +117,10 @@ module.exports.sockets = function(http) {
       });
     });
 
+    //add group name
+    socket.on("add-group", function(data){
+      console.log(data.name);
+    })
     //for popping disconnection message.
     socket.on("disconnect", function() {
       console.log(socket.username + "  logged out");

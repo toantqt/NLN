@@ -230,13 +230,13 @@ $('#createGroup').hide();
   //add group name
   $('#addGroup').submit(function(){
     var nameGroup = $('#nameGroup').val();
-    socket.emit('add-group',{name: nameGroup});
+    socket.emit('add-group',{name:$('#nameGroup').val() });
+    return false;
   });
+  // socket.on('add-group', function(data){
+  //   alert('toantqt');
+  // })
 
-  socket.on('add-group', function(data){
-    // $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px", "width":"70px"})));
-    alert(data.name);
-  });
 
   //chang profile event
   $('#change').submit(function(){
