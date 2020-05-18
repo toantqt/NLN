@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const auth = require("../../middlewares/auth.js");
+//const userModel = mongoose.model("User");
 
 module.exports.controller = function(app) {
   //route for chat

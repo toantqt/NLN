@@ -9,6 +9,7 @@ $ (function(){
   var roomId;//variable for setting room.
   var toUser;
   var allGroup = [];
+  var admin = [];
 
 
   //passing data on connection.
@@ -67,11 +68,30 @@ $('#createGroup').hide();
       }
       //$('#totalOnline').text(totalOnline);
     }//end of for.
+    $('#list').append('<div id="list-room"><span>List Room</span></div>');
+    //push admin to array
+    for(var ad in stack.adminStack){
+      admin.push(ad);
+    }
+    
+    //show group and admin
     for(var group in stack.groupStack){
       allGroup.push(group);
-      var txt = $('<button id="ubtn" class="btn btn-success  btn-md">').text(group).css({"font-size":"18px"});
-      $('#list').append($('<li>').append(txt));
+      // var txtName = $('<button id="ubtn" class="btn btn-success  btn-md">').text(group).css({"font-size":"18px"});
+      // $('#list').append($('<li>').append(txtName));
     }
+    for(var i = 0; i < allGroup.length; i++){
+      var txtName = $('<button id="ubtn" class="btn btn-success  btn-md">').text(allGroup[i]).css({"font-size":"18px"});
+      if(admin[i] == null){
+        var txtAdmin = $('<span></span>').text(username).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+      }
+      else{
+        var txtAdmin = $('<span></span>').text(admin[i]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+      }
+        $('#list').append($('<li>').append(txtName,txtAdmin));
+    }
+    
+    
     // $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
   }); //end of receiving onlineStack event.
 
@@ -163,7 +183,7 @@ $('#createGroup').hide();
           //styling of chat message.
           
           var chatDate = moment(data.result[i].createdOn).format("MMMM Do YYYY, hh:mm:ss a");
-          var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ").css({"color":"#006080","float": "right !important"});
+          var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ").css({"color":"black","float": "right !important"});
           var txt2 = $('<span></span>').text(chatDate).css({"color":"#a6a6a6","font-size":"16px"});
           var txt3 = $('<p></p>').append(txt1,txt2);
           var txt4 = $('<p></p>').text(data.result[i].msg).css({"color":"#000000","float": "right !important"});
@@ -233,7 +253,7 @@ $('#createGroup').hide();
   socket.on('chat-msg',function(data){
     //styling of chat message.
     var chatDate = moment(data.date).format("MMMM Do YYYY, hh:mm:ss a");
-    var txt1 = $('<span></span>').text(data.msgFrom+" : ").css({"color":"#006080"});
+    var txt1 = $('<span></span>').text(data.msgFrom+" : ").css({"color":"black"});
     var txt2 = $('<span></span>').text(chatDate).css({"float":"right","color":"#a6a6a6","font-size":"16px"});
     var txt3 = $('<p></p>').append(txt1,txt2);
     var txt4 = $('<p></p>').text(data.msg).css({"color":"#000000"});
@@ -253,7 +273,7 @@ $('#createGroup').hide();
   //add group name
   $('#addGroup').submit(function(){
     var nameGroup = $('#nameGroup').val();
-    socket.emit('add-group',{name:$('#nameGroup').val() });
+    socket.emit('add-group',{name:$('#nameGroup').val(), admin: username});
     alert("Add Group Successfully");
     $('#nameGroup').val("");
     return false;

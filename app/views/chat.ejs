@@ -25,6 +25,13 @@
     #none{
       background-color: white !important;
     }
+    #list-room{
+      text-align: center;
+      background-color: #337ab7;
+      color: white;
+      font-size: 20px;
+      border-radius: 15px;
+    }
     
 
   </style>
@@ -42,14 +49,14 @@
               <label>Chat Options</label>
               <div  class="dropdown" style=" float: right;"> 
                 <button class="btn-friend" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i title="Add Group" class="fas fa-users font-30" style="color: white;"></i> 
+                  <i title="Add Group" class="fas fa-users font-30" style="color: white; line-height: 30px;"></i> 
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 200px; width: 300px; margin-top: 5px;">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 240px; width: 300px; margin-top: 5px;">
                 <form style="margin-left: 30px; margin-top: 20px;" id="addGroup">
                   <div class="form-group" style="width: 70%;">
                     <label for="exampleInputEmail1" style="font-size: 16px;">Name Group</label>
                     <input type="text" id="nameGroup" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter name group" style="height: 40px; font-size: 16px;">
-                  </div>
+                 </div>
                   <button class="btn btn-primary" style="width: 80px; height: 40px; font-size: 20px;">Add</button>
                 </form>
           
@@ -70,9 +77,9 @@
               <h4 id="frndName">Chat Room</h4>
             </div>
             <div class="panel-body" id="scrl2">
-              <p id="loading">Loading..... Please Wait.</p>
-              <p id="noChat">No More Chats To Display.....</p>
-              <p id="initMsg">!!...Click On User Or Group Button To Start Chat...!!</p>
+              <p id="loading" style="text-align: center;">Loading..... Please Wait.</p>
+              <p id="noChat" style="text-align: center;">No More Chats To Display.....</p>
+              <p id="initMsg" style="text-align: center;">Click On User Or Group Button To Start Chat</p>
               <ul id="messages"></ul>
             </div>
 

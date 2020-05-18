@@ -24,6 +24,7 @@ module.exports.sockets = function(http) {
   const ioChat = io.of("/chat");
   const userStack = {};
   const groupStack = {};
+  const adminStack = {};
   let oldChats, sendUserStack, sendGroupStack, setRoom;
   const userSocket = {};
 
@@ -49,6 +50,9 @@ module.exports.sockets = function(http) {
       //getting all group list
       eventEmitter.emit("get-all-group");
 
+      //get admin group
+      eventEmitter.emit("get-admin");
+
       //sending all users list. and setting if online or offline.
       sendUserStack = function() {
         for (i in userSocket) {
@@ -60,22 +64,10 @@ module.exports.sockets = function(http) {
         }
         // console.log(userStack);
         //for popping connection message.
-        ioChat.emit("onlineStack", {userStack: userStack, groupStack: groupStack});
+        ioChat.emit("onlineStack", {userStack: userStack, groupStack: groupStack, adminStack: adminStack});
       }; //end of sendUserStack function.
 
       //sending group stack
-      sendGroupStack = function() {
-        // for (i in userSocket) {
-        //   for (j in groupStack) {
-        //     if (j == i) {
-        //       groupStack[j] = "Online";
-        //     }
-        //   }
-        // }
-        //for popping connection message.
-        // ioChat.emit("all-group", groupStack);
-        console.log(groupStack);
-      }; //end of sendUserStack function.
     }); //end of set-user-data event.
 
     //sending group stack
@@ -143,9 +135,12 @@ module.exports.sockets = function(http) {
     //add group name
     socket.on("add-group", function(data){
       console.log(data.name);
+      //console.log(data.password);
       eventEmitter.emit("save-group", {
-        nameGroup: data.name
-      })
+        nameGroup: data.name,
+        admin: data.admin
+        //password: data.password
+      });
     });
 
     
@@ -194,7 +189,8 @@ module.exports.sockets = function(http) {
   //save Group
   eventEmitter.on("save-group", function(data){
       var newGroup = new groupModel({
-        name: data.nameGroup
+        name: data.nameGroup,
+        admin: data.admin
       });
       //save
       newGroup.save(function(err, result){
@@ -259,12 +255,35 @@ module.exports.sockets = function(http) {
           console.log("Error :" + err);
         }
         else{
+          
           for (var i = 0; i < result.length; i++) {
-            groupStack[result[i].name] = "Offline"
+            groupStack[result[i].name] = "Offline";
             // console.log(result[i].name);
           }
-          // console.log(groupStack);
-          sendGroupStack();
+           console.log(groupStack);
+          
+          // ioChat.emit("all-group", groupStack);
+        }
+      });
+  });
+
+  //get admin group
+  eventEmitter.on("get-admin", function(){
+    groupModel
+      .find({})
+      .select("admin")
+      .exec(function(err, result){
+        if(err){
+          console.log("Error :" + err);
+        }
+        else{
+          
+          for (var i = 0; i < result.length; i++) {
+            adminStack[result[i].admin] = "Offline";
+            // console.log(result[i].name);
+          }
+           console.log(adminStack);
+          
           // ioChat.emit("all-group", groupStack);
         }
       });
