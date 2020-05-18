@@ -8,6 +8,8 @@ $ (function(){
   var oldInitDone = 0; //it is 0 when old-chats-init is not executed and 1 if executed.
   var roomId;//variable for setting room.
   var toUser;
+  var allGroup = [];
+
 
   //passing data on connection.
   socket.on('connect',function(){
@@ -30,7 +32,7 @@ $('#createGroup').hide();
     $('#list').empty();
     $('#list').append($('<li>').append($('<button id="ubtn" class="btn btn-danger btn-block btn-lg"></button>').text("Group").css({"font-size":"18px", "width":"70px"})));
     var totalOnline = 0;
-    for (var user in stack){
+    for (var user in stack.userStack){
       //setting txt1. shows users button.
       if(user == username){
         var txt1 = $('<button class="boxF disabled"> </button>').text(user).css({"font-size":"18px"});
@@ -43,7 +45,7 @@ $('#createGroup').hide();
         var txt1 = $('<button id="ubtn" class="btn btn-success  btn-md">').text(user).css({"font-size":"18px"});
       }
       //setting txt2. shows online status.
-      if(stack[user] == "Online" && user != 'undefined'){
+      if(stack.userStack[user] == "Online" && user != 'undefined'){
         var txt2 = $('<span></span>').append("<i class='fas fa-circle'></i>").css({"float":"right","color":"green","font-size":"15px", "margin-top": "9px"});
        
         totalOnline++;
@@ -53,20 +55,33 @@ $('#createGroup').hide();
         var txt2 = '';
       }
       else{
-        var txt2 = $('<span ></span>').text(stack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+        var txt2 = $('<span ></span>').text(stack.userStack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
        
       }
+      if(user == 'undefined'){
       //listing all users.
-      $('#list').append($('<li>').append(txt1,txt2));
-      $('#totalOnline').text(totalOnline);
+        $('#list').append($('<li id="none">').append(txt1,txt2));
+      }
+      else{
+        $('#list').append($('<li>').append(txt1,txt2));
+      }
+      //$('#totalOnline').text(totalOnline);
     }//end of for.
+    for(var group in stack.groupStack){
+      allGroup.push(group);
+      var txt = $('<button id="ubtn" class="btn btn-success  btn-md">').text(group).css({"font-size":"18px"});
+      $('#list').append($('<li>').append(txt));
+    }
     // $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
   }); //end of receiving onlineStack event.
 
+  // socket.on("all-group", function(stack){
+   
+    
+  // });
 
   //on button click function.
   $(document).on("click","#ubtn",function(){
-
     $('#frameChat').show();
     $('#createGroup').hide();
     //empty messages.
@@ -85,10 +100,18 @@ $('#createGroup').hide();
     $('#chatForm').show(); //showing chat form.
     $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
 
+    //find toUser in all group
+    var findUser = allGroup.find(x => {
+      return x == toUser;
+    });
     //assigning two names for room. which helps in one-to-one and also group chat.
     if(toUser == "Group"){
       var currentRoom = "Group-Group";
       var reverseRoom = "Group-Group";
+    }
+    else if(toUser == findUser){
+      var currentRoom = "chatGroup-" + toUser ;
+      var reverseRoom = toUser + "-chatGroup";
     }
     else{
       var currentRoom = username+"-"+toUser;
@@ -231,6 +254,8 @@ $('#createGroup').hide();
   $('#addGroup').submit(function(){
     var nameGroup = $('#nameGroup').val();
     socket.emit('add-group',{name:$('#nameGroup').val() });
+    alert("Add Group Successfully");
+    $('#nameGroup').val("");
     return false;
   });
   // socket.on('add-group', function(data){
@@ -260,6 +285,6 @@ $('#createGroup').hide();
     noChat = 0;
   });//end of connect event.
 
-
-
+  
+    
 });//end of function.

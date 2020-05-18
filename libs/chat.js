@@ -23,7 +23,8 @@ module.exports.sockets = function(http) {
   //setting chat route
   const ioChat = io.of("/chat");
   const userStack = {};
-  let oldChats, sendUserStack, setRoom;
+  const groupStack = {};
+  let oldChats, sendUserStack, sendGroupStack, setRoom;
   const userSocket = {};
 
   //socket.io magic starts here
@@ -45,6 +46,9 @@ module.exports.sockets = function(http) {
       //getting all users list
       eventEmitter.emit("get-all-users");
 
+      //getting all group list
+      eventEmitter.emit("get-all-group");
+
       //sending all users list. and setting if online or offline.
       sendUserStack = function() {
         for (i in userSocket) {
@@ -54,10 +58,29 @@ module.exports.sockets = function(http) {
             }
           }
         }
+        // console.log(userStack);
         //for popping connection message.
-        ioChat.emit("onlineStack", userStack);
+        ioChat.emit("onlineStack", {userStack: userStack, groupStack: groupStack});
+      }; //end of sendUserStack function.
+
+      //sending group stack
+      sendGroupStack = function() {
+        // for (i in userSocket) {
+        //   for (j in groupStack) {
+        //     if (j == i) {
+        //       groupStack[j] = "Online";
+        //     }
+        //   }
+        // }
+        //for popping connection message.
+        // ioChat.emit("all-group", groupStack);
+        console.log(groupStack);
       }; //end of sendUserStack function.
     }); //end of set-user-data event.
+
+    //sending group stack
+    
+  
 
     //setting room.
     socket.on("set-room", function(room) {
@@ -120,7 +143,12 @@ module.exports.sockets = function(http) {
     //add group name
     socket.on("add-group", function(data){
       console.log(data.name);
-    })
+      eventEmitter.emit("save-group", {
+        nameGroup: data.name
+      })
+    });
+
+    
     //for popping disconnection message.
     socket.on("disconnect", function() {
       console.log(socket.username + "  logged out");
@@ -163,6 +191,25 @@ module.exports.sockets = function(http) {
     });
   }); //end of saving chat.
 
+  //save Group
+  eventEmitter.on("save-group", function(data){
+      var newGroup = new groupModel({
+        name: data.nameGroup
+      });
+      //save
+      newGroup.save(function(err, result){
+        if(err){
+          console.log("Error : " + err);
+        }
+        else if (result == undefined || result == null || result == "") {
+          console.log("Group Is Not Saved.");
+        } else {
+          console.log("Group Saved.");
+          //console.log(result);
+        }
+      });
+  }); 
+
   //reading chat from database.
   eventEmitter.on("read-chat", function(data) {
     chatModel
@@ -201,6 +248,27 @@ module.exports.sockets = function(http) {
         }
       });
   }); //end of get-all-users event.
+
+  //get all group
+  eventEmitter.on("get-all-group", function(){
+    groupModel
+      .find({})
+      .select("name")
+      .exec(function(err, result){
+        if(err){
+          console.log("Error :" + err);
+        }
+        else{
+          for (var i = 0; i < result.length; i++) {
+            groupStack[result[i].name] = "Offline"
+            // console.log(result[i].name);
+          }
+          // console.log(groupStack);
+          sendGroupStack();
+          // ioChat.emit("all-group", groupStack);
+        }
+      });
+  });
 
   //listening get-room-data event.
   eventEmitter.on("get-room-data", function(room) {
