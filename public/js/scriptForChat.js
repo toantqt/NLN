@@ -118,7 +118,7 @@ $('#createGroup').hide();
     $('#frndName').text(toUser);
     $('#initMsg').hide();
     $('#chatForm').show(); //showing chat form.
-    $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
+    // $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
 
     //find toUser in all group
     var findUser = allGroup.find(x => {
@@ -245,7 +245,6 @@ $('#createGroup').hide();
   $('#chatForm').submit(function(){
     socket.emit('chat-msg',{msg:$('#myMsg').val(),msgTo:toUser,date:Date.now()});
     $('#myMsg').val("");
-    $('#sendBtn').hide();
     return false;
   }); //end of sending message.
 
@@ -286,7 +285,19 @@ $('#createGroup').hide();
   //chang profile event
   $('#change').submit(function(){
     alert("Update Profile successfully. Plese Login");
-  })
+  });
+
+  $("#myMsg").emojioneArea({
+    // pickerPosition: "bottom",
+    // filtesPosition: "bottom",
+    placeholder: "Type some thing",
+    events: {
+      keyup: function(editor, event){
+        console.log(editor.html());
+        console.log(this.getText());
+      }
+    }
+  });
   //on disconnect event.
   //passing data on connection.
   socket.on('disconnect',function(){

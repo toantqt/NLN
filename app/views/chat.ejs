@@ -1,9 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <% include ./parts/head.ejs %>
-  <!-- <link rel="stylesheet" href="file/to/path/css/emojionearea.min.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/pics/favicon.ico" type="image"/>
+  <!-- <% include ./parts/head.ejs %>
+  <link rel="stylesheet" href="file/to/path/css/emojionearea.min.css">
   <script type="text/javascript" src="file/to/path/js/emojionearea.min.js"></script> -->
+  <script src="/js/jquery-3.1.1.min.js"></script>
+  <link rel="stylesheet" href="/emoji/emojionearea.min.css">
+  <script type="text/javascript" src="/emoji/emojionearea.min.js"></script>
+<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/elegant-icons-style.css">
+<link rel="stylesheet" href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <style>
     
     #you{
@@ -33,6 +44,9 @@
       border-radius: 15px;
     }
     
+    #sendBtn{
+      display: inline-block;
+    }
 
   </style>
 </head>
@@ -51,7 +65,7 @@
                 <button class="btn-friend" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   <i title="Add Group" class="fas fa-users font-30" style="color: white; line-height: 30px;"></i> 
               </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 240px; width: 300px; margin-top: 5px;">
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="height: 200px; width: 300px; margin-top: 5px;">
                 <form style="margin-left: 30px; margin-top: 20px;" id="addGroup">
                   <div class="form-group" style="width: 70%;">
                     <label for="exampleInputEmail1" style="font-size: 16px;">Name Group</label>
@@ -85,7 +99,7 @@
 
             <div class="panel-footer">
               <form id="chatForm" action="">
-                <input id="myMsg" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
+                <input id="myMsg" type="text" class="input-box-send" autocomplete="off" placeholder="Write Message Here.." />
                 <button id="sendBtn" class="btn btn-success btn-lg"><span class="glyphicon glyphicon-send"></span> <b>Send</b></button>
               </form>
             </div>
@@ -97,14 +111,18 @@
   </main>
 
   <% include ./parts/footer.ejs %>
-  </script>
-  <script src="/js/scriptForChat.js"></script>
-  <script type="text/javascript" src="/js/sendRequest.js"></script>
-  <!-- <script>
-     $(document).ready(function() {
-        $("#myMsg").emojioneArea();
-     });
-  </script> -->
-  <script src="/js/jquery-3.1.1.min.js"></script>
+  
+    <script src="/js/scriptForChat.js"></script>
+    <script type="text/javascript" src="/js/sendRequest.js"></script>
+    <script>
+    $(document).ready(function(){
+     
+    });
+ //end of keyup handler.
+     </script>
+
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/js/socket.io-1.7.3.js"></script>
 </body>
 </html>
