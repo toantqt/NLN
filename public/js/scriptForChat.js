@@ -48,16 +48,13 @@ $('#createGroup').hide();
       //setting txt2. shows online status.
       if(stack.userStack[user] == "Online" && user != 'undefined'){
         var txt2 = $('<span></span>').append("<i class='fas fa-circle'></i>").css({"float":"right","color":"green","font-size":"15px", "margin-top": "9px"});
-       
         totalOnline++;
-
       }
       else if(user == 'undefined'){
         var txt2 = '';
       }
       else{
         var txt2 = $('<span ></span>').text(stack.userStack[user]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
-       
       }
       if(user == 'undefined'){
       //listing all users.
@@ -83,10 +80,10 @@ $('#createGroup').hide();
     for(var i = 0; i < allGroup.length; i++){
       var txtName = $('<button id="ubtn" class="btn btn-success  btn-md">').text(allGroup[i]).css({"font-size":"18px"});
       if(admin[i] == null){
-        var txtAdmin = $('<span></span>').text(username).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+        var txtAdmin = $('<span id="admin"></span>').text(username).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
       else{
-        var txtAdmin = $('<span></span>').text(admin[i]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
+        var txtAdmin = $('<span id="admin"></span>').text(admin[i]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
         $('#list').append($('<li>').append(txtName,txtAdmin));
     }
@@ -118,7 +115,7 @@ $('#createGroup').hide();
     $('#frndName').text(toUser);
     $('#initMsg').hide();
     $('#chatForm').show(); //showing chat form.
-    // $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
+     $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
 
     //find toUser in all group
     var findUser = allGroup.find(x => {
@@ -158,7 +155,6 @@ $('#createGroup').hide();
     console.log("roomId : "+roomId);
     //event to get chat history on button click or as room is set.
     socket.emit('old-chats-init',{room:roomId,username:username,msgCount:msgCount});
-
   }); //end of set-room event.
 
   //on scroll load more old-chats.
@@ -181,7 +177,6 @@ $('#createGroup').hide();
         
         for (var i = 0;i < data.result.length;i++) {
           //styling of chat message.
-          
           var chatDate = moment(data.result[i].createdOn).format("MMMM Do YYYY, hh:mm:ss a");
           var txt1 = $('<span></span>').text(data.result[i].msgFrom+" : ").css({"color":"black","float": "right !important"});
           var txt2 = $('<span></span>').text(chatDate).css({"color":"#a6a6a6","font-size":"16px"});
@@ -217,16 +212,16 @@ $('#createGroup').hide();
 
   }); // end of listening old-chats event.
 
-  // keyup handler.
-  $('#myMsg').keyup(function(){
-    if($('#myMsg').val()){
-      $('#sendBtn').show(); //showing send button.
-      socket.emit('typing');
-    }
-    else{
-      $('#sendBtn').hide(); //hiding send button to prevent sending empty messages.
-    }
-  }); //end of keyup handler.
+  // // keyup handler.
+  // $('#myMsg').keyup(function(){
+  //   if($('#myMsg').val()){
+  //     $('#sendBtn').show(); //showing send button.
+  //     socket.emit('typing');
+  //   }
+  //   else{
+  //     $('#sendBtn').hide(); //hiding send button to prevent sending empty messages.
+  //   }
+  // }); //end of keyup handler.
 
   //receiving typing message.
   socket.on('typing',function(msg){
@@ -241,12 +236,7 @@ $('#createGroup').hide();
     },3500);
   }); //end of typing event.
 
-  //sending message.
-  $('#chatForm').submit(function(){
-    socket.emit('chat-msg',{msg:$('#myMsg').val(),msgTo:toUser,date:Date.now()});
-    $('#myMsg').val("");
-    return false;
-  }); //end of sending message.
+ 
 
   //receiving messages.
   socket.on('chat-msg',function(data){
@@ -288,16 +278,36 @@ $('#createGroup').hide();
   });
 
   $("#myMsg").emojioneArea({
-    // pickerPosition: "bottom",
-    // filtesPosition: "bottom",
     placeholder: "Type some thing",
     events: {
       keyup: function(editor, event){
-        console.log(editor.html());
-        console.log(this.getText());
+        $('#myMsg').val(this.getText());
+        if(event.which == 13){
+          $("#chatForm").submit();
+           $("#myMsg").data("emojioneArea").setText("");
+        }
+        if(this.getText()){
+          $("#sendBtn").show();
+          socket.emit('typing');
+        }
+        else{
+          $("#sendBtn").hide();
+        }
       }
     }
   });
+
+   //sending message.
+   $('#chatForm').on('submit', function(){
+    socket.emit('chat-msg',{msg:$('#myMsg').val(),msgTo:toUser,date:Date.now()});
+   
+    return false;
+  }); //end of sending message.
+  // $(".emojionearea").unbind("keyup").on("keyup", function(e){
+  //   if(e.which == 13){
+  //     alert("hello");
+  //   }
+  // })
   //on disconnect event.
   //passing data on connection.
   socket.on('disconnect',function(){
