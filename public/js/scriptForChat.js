@@ -10,6 +10,7 @@ $ (function(){
   var toUser;
   var allGroup = [];
   var admin = [];
+  var allUser =[]
 
 
   //passing data on connection.
@@ -66,6 +67,13 @@ $('#createGroup').hide();
       //$('#totalOnline').text(totalOnline);
     }//end of for.
     $('#list').append('<div id="list-room"><span>List Room</span></div>');
+    
+    //show list friend in add Member
+    for (var user in stack.userStack){
+      var txtMember = $('<button id="ubtn" class="btn btn-success  btn-md">').text(user).css({"font-size":"18px"});
+      $('#listFriend').append($('<li>').append(txtMember));
+    }
+    
     //push admin to array
     for(var ad in stack.adminStack){
       admin.push(ad);
@@ -85,7 +93,7 @@ $('#createGroup').hide();
       else{
         var txtAdmin = $('<span id="admin"></span>').text(admin[i]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
-        $('#list').append($('<li>').append(txtName,txtAdmin));
+        $('#list').append($('<li  data-toggle="modal" data-target="#myModalMember">').append(txtName,txtAdmin));
     }
     
     
