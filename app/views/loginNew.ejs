@@ -2,53 +2,106 @@
 <html lang="en">
 <head>
   <% include ./parts/head.ejs %>
-  <style>
-.login-container{
-    width: 100%;
-    margin-top: 5%;
-    margin-bottom: 5%;
-    padding-left: 35%;
-    
-    
-}
-.login-form-1{
-    padding: 5%;
-    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
-    height: 500px;
-}
-.login-form-1 h3{
-    text-align: center;
-    color: #333;
-}
-.login-container form{
-    padding: 10%;
-}
-.btnSubmit
-{
-    width: 50%;
-    border-radius: 1rem;
-    padding: 1.5%;
-    border: none;
-    cursor: pointer;
-}
-.login-form-1 .btnSubmit{
-    font-weight: 600;
-    color: #fff;
-    background-color: #0062cc;
-}
-.login-form-1 .ForgetPwd{
-    color: #0062cc;
-    font-weight: 600;
-    text-decoration: none;
-}
+  <link rel="stylesheet" href="/css/base.css">
+<style>
+    .page-login label {
+        text-decoration: none;
+        font-family: Segoe UI;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: 5px;
+        text-decoration: none;
+    }
+
+    .page-login .box-login {
+        z-index: 1;
+    }
+
+    .page-login .require {
+        color: red;
+        font-weight: bold;
+    }
+
+    .page-login .container {
+        height: 660px;
+        background-color: #f9f9f9;
+    }
+
+    .page-login .box-login {
+        background-color: white;
+        width: 350px;
+        height: auto;
+        margin: auto;
+        padding-bottom: 15px;
+        border: 1px solid #337ab7;
+        border-radius: 4px;
+    }
+
+    .page-login .box-input {
+        margin: 20px 20px 5px 20px;
+    }
+
+    .page-login .box-input input:not([type="checkbox"]) {
+        margin: 5px 5px 15px 5px;
+        width: 302px;
+    }
+
+    .page-login .box-control {
+        margin: 5px 5px 15px 20px;
+        display: inline-block;
+    }
+
+    .page-login .box-control .btn-2-col {
+        width: 145px;
+    }
+
+    .page-login .box-control .btn-1-col {
+        margin: 0px 5px 5px 5px;
+        width: 302px
+    }
+
+    .page-login .box-control .btn-2-col:nth-child(odd) {
+        margin: 0px 2.5px 5px 5px;
+    }
+
+    .page-login .box-control .btn-2-col:nth-child(even) {
+        margin: 0px 2.5px 5px 5px;
+    }
 
   </style>
 </head>
 
 <body>
-    <div>
+    <div class="page-login">
+        <div class="alert-top-right error-alert" id="error-alert"></div>
+        <div class="container">
+            <div class="top" style="text-align: center; padding-top: 20px;">
+                <img width="100" height="100" src="/image/logo.png" id="logo"/>
+                <h1 style="color: #5bc0de;"> JOIN CHAT </h1>
+            </div>
+            <div class="box-login">
+                <form action="/user/api/v1/login" method="post">
+                    <div class="box-input">
+                        <label>Email</label>
+                        <input type="email" name="email"  placeholder="Your Email *" value="" class="large-input-text"/>
+                        <br>
+                        <label>Password</label>
+                        <input type="password" name="password" class="large-input-text" placeholder="Your Password *" value="" class="large-input-text"/>
+                    </div>
+                    <div class="box-control">
+                        <input type="submit" name="submit" class="large-btn info btn-2-col" value="Login"  />
+                        <input onclick="location.href ='/user/signup' " type="button" class="large-btn default btn-2-col"
+                               id="btnRegister" value="Register"
+                        />
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class=" login-container">
+
+
+
+    <!-- <div class=" login-container">
         <div class="row">
             <div class="col-md-6 login-form-1">
                 <h3>LOGIN</h3>
@@ -68,6 +121,6 @@
                     </div>
                 </form>
             </div>
-    </div>
+    </div> -->
 
 </body>
