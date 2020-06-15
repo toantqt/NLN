@@ -51,6 +51,11 @@
       display: inline-block;
       margin-right: 130px;
     }
+    #btn-addMember{
+      margin-bottom: 6px;
+      padding: 7px 10px;
+      font-size: 12px;
+    }
 
   </style>
 </head>
@@ -74,10 +79,16 @@
             
             <!-- Modal body -->
             <div class="modal-body">
-              <h3>List Friend</h3>
+              <div id="form-addMember">
+                <form id="addMember">
+                  <label>Friend Name</label>
+                  <input type="text" id="name-member">
+                  <button id="btn-addMember" class="btn btn-success  btn-md">Add to Room</button>
+                </form>
+              </div>
               <hr>
               <div>
-                <ul id="listFriend">
+                <ul id="list-member">
 
                 </ul>
               </div>

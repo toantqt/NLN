@@ -10,7 +10,8 @@ $ (function(){
   var toUser;
   var allGroup = [];
   var admin = [];
-  var allUser =[]
+  var allUser =[];
+  var member = [];
 
 
   //passing data on connection.
@@ -36,6 +37,7 @@ $('#createGroup').hide();
     var totalOnline = 0;
     for (var user in stack.userStack){
       //setting txt1. shows users button.
+      allUser.push(user);
       if(user == username){
         var txt1 = $('<button class="boxF disabled"> </button>').text(user).css({"font-size":"18px"});
       }
@@ -69,10 +71,7 @@ $('#createGroup').hide();
     $('#list').append('<div id="list-room"><span>List Room</span></div>');
     
     //show list friend in add Member
-    for (var user in stack.userStack){
-      var txtMember = $('<button id="ubtn" class="btn btn-success  btn-md">').text(user).css({"font-size":"18px"});
-      $('#listFriend').append($('<li>').append(txtMember));
-    }
+    
     
     //push admin to array
     for(var ad in stack.adminStack){
@@ -86,7 +85,7 @@ $('#createGroup').hide();
       // $('#list').append($('<li>').append(txtName));
     }
     for(var i = 0; i < allGroup.length; i++){
-      var txtName = $('<button id="ubtn" class="btn btn-success  btn-md">').text(allGroup[i]).css({"font-size":"18px"});
+      var txtName = $('<button id="btn-room" class="btn btn-success  btn-md">').text(allGroup[i]).css({"font-size":"18px"});
       if(admin[i] == null){
         var txtAdmin = $('<span id="admin"></span>').text(username).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
@@ -94,6 +93,16 @@ $('#createGroup').hide();
         var txtAdmin = $('<span id="admin"></span>').text(admin[i]).css({"float":"right","color":"#a6a6a6","font-size":"12px"});
       }
         $('#list').append($('<li  data-toggle="modal" data-target="#myModalMember">').append(txtName,txtAdmin));
+    }
+    
+    for(mb in stack.roomStack){
+      member.push(mb);
+    }
+    
+    //show member
+    for(i=0; i<member.length; i++){
+      var txtMember = $('<span></span>').text(member[i]);
+      $('#list-member').append($('<li>').append(txtMember));
     }
     
     
@@ -104,6 +113,77 @@ $('#createGroup').hide();
    
     
   // });
+
+//add member to room
+$('#addMember').submit(function(){
+  let member = $('#name-member').val();
+  if(admin.includes(username)){
+    if(allUser.includes(member)){
+      socket.emit('add-member',{name: member, room:'Phong 1'})
+      alert('Add member to room succesfully');
+      return false;
+    }
+    else{
+      alert('Name of member not in list friend');
+      return false;
+    }  
+  }
+  else{
+    alert('You not a admin');
+  }
+  
+});
+
+$(document).on("click","#btn-room",function(){
+  
+  if(member.includes(username) || admin.includes(username)){
+    $('#frameChat').show();
+    $('#createGroup').hide();
+    //empty messages.
+    $('#messages').empty();
+    $('#typing').text("");
+    msgCount = 0;
+    noChat = 0;
+    oldInitDone = 0;
+
+    //assigning friends name to whom messages will send,(in case of group its value is Group).
+    toUser = $(this).text();
+
+    //showing and hiding relevant information.
+    $('#frndName').text(toUser);
+    $('#initMsg').hide();
+    $('#chatForm').show(); //showing chat form.
+    $('#sendBtn').hide(); //hiding send button to prevent sending of empty messages.
+
+    //find toUser in all group
+    var findUser = allGroup.find(x => {
+      return x == toUser;
+    });
+    //assigning two names for room. which helps in one-to-one and also group chat.
+    if(toUser == "Group"){
+      var currentRoom = "Group-Group";
+      var reverseRoom = "Group-Group";
+    }
+    else if(toUser == findUser){
+      var currentRoom = "chatGroup-" + toUser ;
+      var reverseRoom = toUser + "-chatGroup";
+    }
+    else{
+      var currentRoom = username+"-"+toUser;
+      var reverseRoom = toUser+"-"+username;
+    }
+
+    //event to set room and join.
+    socket.emit('set-room',{name1:currentRoom,name2:reverseRoom});
+  }
+else{
+  alert('You are not a member of the group');
+  return false;
+}
+
+}); //end of on button click event.
+
+
 
   //on button click function.
   $(document).on("click","#ubtn",function(){

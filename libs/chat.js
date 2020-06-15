@@ -25,6 +25,7 @@ module.exports.sockets = function(http) {
   const userStack = {};
   const groupStack = {};
   const adminStack = {};
+  const roomStack = {};
   let oldChats, sendUserStack, sendGroupStack, setRoom;
   const userSocket = {};
 
@@ -53,6 +54,9 @@ module.exports.sockets = function(http) {
       //get admin group
       eventEmitter.emit("get-admin");
 
+      //get room(name, member)
+      eventEmitter.emit("get-group-data");
+
       //sending all users list. and setting if online or offline.
       sendUserStack = function() {
         for (i in userSocket) {
@@ -64,7 +68,7 @@ module.exports.sockets = function(http) {
         }
         // console.log(userStack);
         //for popping connection message.
-        ioChat.emit("onlineStack", {userStack: userStack, groupStack: groupStack, adminStack: adminStack});
+        ioChat.emit("onlineStack", {userStack: userStack, groupStack: groupStack, adminStack: adminStack, roomStack: roomStack});
       }; //end of sendUserStack function.
 
       //sending group stack
@@ -143,6 +147,10 @@ module.exports.sockets = function(http) {
       });
     });
 
+    //add member to group
+    socket.on("add-member", function(data){
+      eventEmitter.emit("save-member", {nameMember: data.name, room: data.room});
+    });
     
     //for popping disconnection message.
     socket.on("disconnect", function() {
@@ -205,6 +213,37 @@ module.exports.sockets = function(http) {
         }
       });
   }); 
+
+  //save member
+  eventEmitter.on('save-member', function(data){
+    console.log(data.nameMember);
+    groupModel.updateOne({
+        'name': data.room
+      },{
+        $push: {member: {memberName: data.nameMember}} 
+        }, (err, count) => {
+          console.log(err);
+        });
+  })
+  //get room and member
+  eventEmitter.on("get-group-data",function(data) {
+    
+    groupModel.find({}).select("member").exec(function(err,result){
+      if(err){
+        console.log(err);
+      }
+      else{
+        console.log(result.length);
+        for(var i=0; i< result.length; i++){
+          console.log(result[0].member.length);
+          for(var i=0; i< result[0].member.length; i++){
+            roomStack[result[0].member[i].memberName] = 'Ofline';
+          }
+        }
+       console.log(roomStack);
+      }
+    })
+  })
 
   //reading chat from database.
   eventEmitter.on("read-chat", function(data) {
@@ -271,7 +310,6 @@ module.exports.sockets = function(http) {
   eventEmitter.on("get-admin", function(){
     groupModel
       .find({})
-      .select("admin")
       .exec(function(err, result){
         if(err){
           console.log("Error :" + err);
@@ -283,6 +321,7 @@ module.exports.sockets = function(http) {
             // console.log(result[i].name);
           }
            console.log(adminStack);
+           
           
           // ioChat.emit("all-group", groupStack);
         }
