@@ -101,9 +101,23 @@ $('#createGroup').hide();
     
     //show member
     for(i=0; i<member.length; i++){
-      var txtMember = $('<span></span>').text(member[i]);
-      $('#list-member').append($('<li>').append(txtMember));
+      var txtMember = $('<span class="name"></span>').text(member[i]);
+      var txtInput = $('<input type="hidden">').val(member[i]);
+      // $('#input-Name').hasClass(member[i]);
+      // $('#input-Name').val(member[i]);
+      var txtButton = $('<button id="btn-delete" class="name btn btn-success  btn-md">').text('delete').val(member[i]);
+      $('#list-member').append($('<li id="list-name-member">').append(txtMember, txtInput, txtButton));
+      
     }
+    
+    //click delete member
+    $(document).on("click",".name",function(){
+      var nameMember = $(this).val();
+      socket.emit('delete-member', {name: nameMember});
+      member.splice(nameMember);
+      $('.name').hide();
+    })
+
     
     
     // $('#scrl1').scrollTop($('#scrl1').prop("scrollHeight"));
@@ -321,7 +335,7 @@ else{
     //showing typing message only for few seconds.
     setTime = setTimeout(function(){
       $('#typing').text("");
-    },3500);
+    },5000);
   }); //end of typing event.
 
  

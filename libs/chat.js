@@ -152,6 +152,12 @@ module.exports.sockets = function(http) {
       eventEmitter.emit("save-member", {nameMember: data.name, room: data.room});
     });
     
+    //delete member
+    socket.on("delete-member", function(data){
+      eventEmitter.emit("remove-member", {nameMember: data.name});
+    })
+
+
     //for popping disconnection message.
     socket.on("disconnect", function() {
       console.log(socket.username + "  logged out");
@@ -225,6 +231,9 @@ module.exports.sockets = function(http) {
           console.log(err);
         });
   })
+
+  
+
   //get room and member
   eventEmitter.on("get-group-data",function(data) {
     
@@ -245,6 +254,17 @@ module.exports.sockets = function(http) {
     })
   })
 
+  //delete member
+  eventEmitter.on("remove-member", function(data){
+    console.log(data.nameMember);
+    groupModel.updateOne({
+      'name': 'Phong 1'
+    }, {
+      $pull: {member: {memberName: data.nameMember}}
+    }, (err, count) => {
+      console.log(err);
+    });
+  });
   //reading chat from database.
   eventEmitter.on("read-chat", function(data) {
     chatModel
