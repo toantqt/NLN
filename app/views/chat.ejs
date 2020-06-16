@@ -11,6 +11,7 @@
   <script src="/js/jquery-3.1.1.min.js"></script>
   <link rel="stylesheet" href="/emoji/emojionearea.min.css">
   <script type="text/javascript" src="/emoji/emojionearea.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/peerjs@0.3.20/dist/peer.min.js"></script>
 <link rel="stylesheet" href="/css/style.css">
 <link rel="stylesheet" href="/css/elegant-icons-style.css">
 <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -140,10 +141,22 @@
             </div>
           </div>
         </div>
+        <div id="frameCall" class="col-sm-8" style="margin-top: 30px;">
+          Your ID<h1 id="my-peer"></h1>
+          <video id="localStream" width="300" controls></video>
+          <br /><br />
+          <video id="remoteStream" width="300" controls></video>
+          <br /><br />
+          <input type="text" id="remoteId" placeholder="Remote Id: ">
+          <button id="btnCall">Call</button>
+        </div>
         <div id="frameChat" class="col-sm-8" style="margin-top: 30px;">
           <div class="panel panel-primary">
             <div class="panel-heading" style="height: 45px; text-align: center;">
               <h4 id="frndName">Chat Room</h4>
+              <a id="video" class="video" style="display: inline-block; float: right; margin-top: -20px;">
+                <i class="fas fa-video" style="color: white;"></i>
+              </a>
             </div>
             <div class="panel-body" id="scrl2">
               <p id="loading" style="text-align: center;">Loading..... Please Wait.</p>
@@ -182,5 +195,6 @@
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/moment.min.js"></script>
 <script src="/js/socket.io-1.7.3.js"></script>
+<script src="/js/videoCall.js"></script>
 </body>
 </html>

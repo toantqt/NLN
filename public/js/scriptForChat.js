@@ -29,6 +29,7 @@ $ (function(){
   });//end of connect event.
 
 $('#createGroup').hide();
+$('#frameCall').hide();
 
   //receiving onlineStack.
   socket.on('onlineStack',function(stack){
@@ -405,12 +406,14 @@ else{
    
     return false;
   }); //end of sending message.
-  // $(".emojionearea").unbind("keyup").on("keyup", function(e){
-  //   if(e.which == 13){
-  //     alert("hello");
-  //   }
-  // })
-  //on disconnect event.
+  
+  //show frameCall
+  $(document).on("click","#video",function(){
+    $('#frameCall').show(1000);
+    $('#frameChat').hide(500);
+  })
+  
+
   //passing data on connection.
   socket.on('disconnect',function(){
 
